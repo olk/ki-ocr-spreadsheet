@@ -43,6 +43,10 @@ $(SPLIT): $(SPLIT_OBJS)
 data: $(GENERATOR) $(TRIM) 
 	$(PYTHON_INTERPRETER) src/data/generate_data.py
 
+# make features
+features: $(SPLIT)
+	$(PYTHON_INTERPRETER) src/features/build_features.py
+
 # delete all compiled Python and C++ files
 clean:
 	find . -type f -name "*.py[co]" -delete
@@ -54,7 +58,7 @@ lint:
 	flake8 src
 
 
-.PHONY: clean lint data
+.PHONY: clean lint data features
 
 
 #################################################################################
