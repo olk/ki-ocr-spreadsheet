@@ -47,6 +47,18 @@ data: $(GENERATOR) $(TRIM)
 features: $(SPLIT)
 	$(PYTHON_INTERPRETER) src/features/build_features.py
 
+# find learning rate for model
+find-lr:
+	$(PYTHON_INTERPRETER) src/models/find_lr.py
+
+# train model
+train:
+	numactl --cpunodebind=1 --membind=1 $(PYTHON_INTERPRETER) src/models/train.py
+
+# test model
+test:
+	$(PYTHON_INTERPRETER) src/models/test.py
+
 # delete all compiled Python and C++ files
 clean:
 	find . -type f -name "*.py[co]" -delete
@@ -58,7 +70,7 @@ lint:
 	flake8 src
 
 
-.PHONY: clean lint data features
+.PHONY: sync-data data features find-lr train test clean lint
 
 
 #################################################################################
