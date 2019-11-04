@@ -43,9 +43,9 @@ $(SPLIT): $(SPLIT_OBJS)
 data: $(GENERATOR) $(TRIM) 
 	$(PYTHON_INTERPRETER) src/data/generate_data.py
 
-# make features
-features: $(SPLIT)
-	$(PYTHON_INTERPRETER) src/features/build_features.py
+# make records
+records: $(SPLIT)
+	$(PYTHON_INTERPRETER) src/features/generate_records.py
 
 # find learning rate for model
 find-lr:
